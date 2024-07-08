@@ -1,0 +1,29 @@
+$font-stack: Arial, Helvetica, sans-serif;
+$dark-color: black;
+$light-color: #ddd;
+$transparent-color: rgb(115 115 115 / 55%);
+
+.product-details {
+    .preview {
+        overflow: 'hidden';
+        height: '500px'
+    }
+
+    .buy-btn {
+        background-color: rgb(20, 20, 37);
+        color: white;
+    }
+    
+    .product-title {
+        font-size: small;
+        color: $transparent-color;
+        font-weight: bold;
+    }
+    
+    .color-btn-icon {
+        border-radius: 20px;
+        overflow: hidden;
+        color: white;
+        background-color: $transparent-color;
+    }
+}

@@ -1,0 +1,47 @@
+$dark-color: black;
+$light-color: #ddd;
+
+nav {
+    a {
+        display: inline;
+        color: $dark-color;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+
+        &:hover {
+            background-color: $light-color;
+            color: $dark-color;
+        }
+    }
+
+    .nav-text {
+        font-size: x-small;
+        font-weight: bold;
+    }
+
+    .menu-icon {
+        font-size: large;
+        background-color: black;
+        color: white;
+    }
+
+    .form-inline {
+        .form-control {
+            border: none;
+            border-bottom: 2px solid orange;
+            border-radius: 0px;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+
+    .btn {
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}

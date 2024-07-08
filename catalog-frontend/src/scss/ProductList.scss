@@ -1,0 +1,128 @@
+$font-stack: Arial, Helvetica, sans-serif;
+$dark-color: black;
+$light-color: #ddd;
+$transparent-color: rgb(115 115 115 / 55%);
+
+.product-list {
+    .filter-by {
+        width: 90%;
+
+        .filter-text {
+            font-size: small;
+            color: $dark-color;
+            opacity: 0.5;
+        }
+
+        .filter-name {
+            font-size: small;
+            border-bottom: 1px solid $dark-color;
+            border-radius: 0px;
+        }
+
+        button {
+            padding-left: 0%;
+            width: 100%;
+            font-size: small;
+            border-bottom: 1px solid $transparent-color;
+            border-radius: 0px !important;
+            text-align: left;
+        }
+
+        #collapseOne,
+        #collapseTwo,
+        #collapseThree,
+        .price-range {
+            font-size: small;
+        }
+    }
+
+    .products {
+        padding: 1rem 0;
+    
+        .product-center {
+            width: 70vw;
+            margin: 0 auto;
+            max-width: 1170px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    
+            .product {
+                max-width: 250px;
+    
+                .img-container {
+                    position: relative;
+                    overflow: hidden;
+    
+                    .product-img {
+                        display: block;
+                        min-height: 12rem;
+                        width: 100%;
+                    }
+                }
+    
+                p {
+                    text-transform: capitalize;
+                    font-size: x-small;
+                    font-weight: bold;
+                    margin-top: -17px;
+                    z-index: 161;
+                    position: relative;
+                    bottom: 15px;
+                    background-color: white;
+                    width: 75%;
+                    height: 34px;
+                    line-height: 65px;
+                }
+    
+                h4 {
+                    font-size: x-small;
+                    margin-top: -1.25rem;
+                    margin-bottom: 3rem;
+                    text-align: right;
+                }
+    
+                h2 {
+                    font-size: x-small;
+                    margin-top: -0.5rem;
+                }
+            }
+        }
+    
+    }
+
+    .slidecontainer {
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 2px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+    
+        .slider:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+    
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: lightsalmon;
+            cursor: pointer;
+        }
+    
+        .slider::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    }
+}
