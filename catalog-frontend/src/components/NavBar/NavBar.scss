@@ -1,0 +1,69 @@
+// Variables
+$dark-color: black;
+$light-color: #ddd;
+$font-size-normal: 17px;
+$font-size-small: x-small;
+$font-size-large: large;
+$btn-border-color: orange;
+
+// Mixins
+@mixin link-style($color, $font-size, $padding) {
+  display: inline;
+  color: $color;
+  text-align: center;
+  padding: $padding;
+  text-decoration: none;
+  font-size: $font-size;
+}
+
+@mixin hover-effect($background-color, $text-color) {
+  &:hover {
+    background-color: $background-color;
+    color: $text-color;
+  }
+}
+
+@mixin form-control-style($border, $border-radius) {
+  border-bottom: $border;
+  border-radius: $border-radius;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+@mixin focus-effect {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+// Styles using Mixins
+nav {
+    a {
+        @include link-style($dark-color, $font-size-normal, 14px 16px);
+        @include hover-effect($light-color, $dark-color);
+    }
+
+    .nav-text {
+        font-size: $font-size-small;
+        font-weight: bold;
+    }
+
+    .menu-icon {
+        font-size: $font-size-large;
+        background-color: $dark-color;
+        color: $light-color;
+    }
+
+    .form-inline {
+        .form-control {
+            border: none;
+            @include form-control-style(2px solid $btn-border-color, 0px);
+        }
+    }
+
+    .btn {
+        @include focus-effect;
+    }
+}

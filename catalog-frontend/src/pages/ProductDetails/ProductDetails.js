@@ -10,16 +10,9 @@ function ProductDetails() {
     const carImg = product.productImg.map(img => '../' + img);
     const [selectedColor, setSelectedColor] = useState(product.color[0]);
 
-    const colorSelect = (e) => {
-        setSelectedColor(e.target.value);
-    };
-
     return (
         <div className='row container align-items-center product-details'>
             <div className="preview col-md-8 col-sm-12 px-0" style={{ overflow: 'hidden', height: '500px' }}>
-                {/* <div className="preview-pic tab-content">
-                    <img src={product.productImg[1]} alt="Product View" style={{height:'500px', width:'100%'}}/>
-                </div> */}
                 <Carousel>
                     <Carousel.Item>
                         <img src={carImg[0]} alt="Product View" style={{ height: '500px', width: '100%' }} />
@@ -37,8 +30,8 @@ function ProductDetails() {
                     <span className='product-title'>Color</span>
                     <div className=' mt-2 d-flex'>
                         {product.color.map(color => (
-                            <div className='me-3 color-btn-icon'>
-                                <button className=' p-0 d-flex color-btn' onClick={colorSelect} value={color} style={{ height:'20px',width:'20px',borderRadius:'20px',backgroundColor: `${color}` }}>{selectedColor === color && <FontAwesomeIcon className='color-btn-icon' icon={faCheck} />}</button>
+                            <div key={color} className='me-3 color-btn-icon'>
+                                <button className=' p-0 d-flex color-btn' value={color} style={{ height:'20px',width:'20px',borderRadius:'20px',backgroundColor: `${color}` }}>{selectedColor === color && <FontAwesomeIcon className='color-btn-icon' icon={faCheck} data-testid="check-icon"/>}</button>
                             </div>
                         ))}
                     </div>
@@ -46,7 +39,7 @@ function ProductDetails() {
                 <div className="mb-4 mt-2">
                     <p className='product-title'>Price Per Unit</p>
                     <div className=''>
-                        <span className="price h4 me-4">${product.price}</span>
+                        <span data-testid='price' className="price h4 me-4">${product.price}</span>
                         {/* <div className="buy-btn"> */}
                         <button className="buy-btn add-to-cart px-3 me-4" type="button">Buy Now</button>
                         <span><FontAwesomeIcon icon={faShoppingCart} /></span>

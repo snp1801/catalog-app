@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Accordion from 'react-bootstrap/Accordion';
 import { Spinner } from 'react-bootstrap';
 
-function ProductList({ allProducts, setAllProducts, products, sliderValue, setSliderValue, searchText, setSelectedCollections, setSelectedCategories, setSelectedColors }) {
+function ProductList({ allProducts, setAllProducts, products, sliderValue, setSliderValue, searchText, setSelectedCollections, setSelectedCategories, setSelectedColors, selectedColors,selectedCollections,selectedCategories,setProducts }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const productTypes = Array.from(new Set(allProducts.map(product => product.type)));
@@ -15,6 +15,27 @@ function ProductList({ allProducts, setAllProducts, products, sliderValue, setSl
         // console.log('All colors : ',acc)
         return acc;
     }, []);
+
+    const filterProducts = useCallback((range, searchText, selectedCollections, selectedCategories, selectedColors) => {
+        return allProducts.filter(product => {
+            let matchesPrice
+            if (range < 10000) {
+                matchesPrice = parseInt(product.price) <= parseInt(range);
+            }
+            else {
+                matchesPrice = true;
+            }
+            const matchesText = product.title.toLowerCase().includes(searchText.toLowerCase());
+            const matchesCollection = selectedCollections.length === 0 || selectedCollections.includes(product.collection);
+            const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.type);
+            const matchesColor = selectedColors.length === 0 || product.color.some(color => selectedColors.includes(color));
+            return matchesPrice && matchesText && matchesCollection && matchesCategory && matchesColor;
+        });
+    }, [allProducts])
+
+    useEffect(() => {
+        setProducts(filterProducts(sliderValue, searchText, selectedCollections, selectedCategories, selectedColors));
+    }, [sliderValue, searchText, selectedCollections, selectedCategories, selectedColors, filterProducts])
 
     const productColors = Array.from(new Set(allColors));
     // let productTypes =Array.from(new Set(products.map(product => product.type)));
@@ -55,12 +76,6 @@ function ProductList({ allProducts, setAllProducts, products, sliderValue, setSl
             .catch(error => console.error('Error fetching data:', error));
     }, []); // Dependency array is empty, so this effect runs once after the initial render
 
-    const productImages = (link) => {
-        console.log('Images link :',link);
-        let src = require('../images/url1.jpeg');
-        return src;
-    }
-
     return (
         <div className="product-list row">
             <section className="col-lg-3 col-md-3 pt-3">
@@ -74,7 +89,7 @@ function ProductList({ allProducts, setAllProducts, products, sliderValue, setSl
                                     productCollections.map(type => (
                                         <div key={type}>
                                             <input onChange={handleCheckboxFilter} type="checkbox" id={type} name='collection' value={type} />
-                                            <label htmlFor="collection"> {type}</label><br />
+                                            <label htmlFor={type}> {type}</label><br />
                                         </div>
                                     ))}
                             </Accordion.Body>
@@ -86,7 +101,7 @@ function ProductList({ allProducts, setAllProducts, products, sliderValue, setSl
                                     productTypes.map(type => (
                                         <div key={type}>
                                             <input onChange={handleCheckboxFilter} type="checkbox" id={type} name="category" value={type} />
-                                            <label htmlFor="category"> {type}</label><br />
+                                            <label htmlFor={type}> {type}</label><br />
                                         </div>
                                     ))}
                             </Accordion.Body>
@@ -98,7 +113,7 @@ function ProductList({ allProducts, setAllProducts, products, sliderValue, setSl
                                     productColors.map(type => (
                                         <div key={type}>
                                             <input onChange={handleCheckboxFilter} type="checkbox" id={type} name="color" value={type} />
-                                            <label htmlFor="color"> {type}</label><br />
+                                            <label htmlFor={type}> {type}</label><br />
                                         </div>
                                     ))}
                             </Accordion.Body>
@@ -106,7 +121,7 @@ function ProductList({ allProducts, setAllProducts, products, sliderValue, setSl
                     </Accordion>
                     <div className="slidecontainer">
                         <p className="price-range pt-3 mb-0">Price Range</p>
-                        <input type="range" min="0" max="10000" step={100} value={sliderValue} className="slider" id="myRange" onChange={handleRangeChange} />
+                        <input data-testid='price-range' type="range" min="0" max="10000" step={100} value={sliderValue} className="slider" id="myRange" onChange={handleRangeChange} />
                         <p className="price-range">
                             ${sliderValue}
                             {<span style={{ float: 'right' }}>$10000+</span>}  {/* Display '+' when sliderValue is 10000 */}
@@ -131,7 +146,7 @@ function ProductList({ allProducts, setAllProducts, products, sliderValue, setSl
                                         </article>
                                     </Link>
                                 </div>
-                            )) : isLoading ? <Spinner/> :
+                            )) : 
                                 (<h3>No Items Found</h3>)
                     }
                 </div>

@@ -1,0 +1,45 @@
+$font-stack: Arial, Helvetica, sans-serif;
+$dark-color: black;
+$light-color: #ddd;
+$transparent-color: rgba(115, 115, 115, 0.55);
+$btn-bg-color: rgb(20, 20, 37);
+$font-size-small: small;
+
+// Mixins
+@mixin button-style($bg-color, $text-color: white) {
+  background-color: $bg-color;
+  color: $text-color;
+}
+
+@mixin text-style($font-size, $color, $weight: null) {
+  font-size: $font-size;
+  color: $color;
+  font-weight: $weight;
+}
+
+@mixin icon-button-style($radius, $bg-color, $text-color: white) {
+  border-radius: $radius;
+  overflow: hidden;
+  color: $text-color;
+  background-color: $bg-color;
+}
+
+// Styles using Mixins
+.product-details {
+    .preview {
+        overflow: hidden;
+        height: 500px; // Corrected syntax by removing quotes
+    }
+
+    .buy-btn {
+        @include button-style($btn-bg-color);
+    }
+    
+    .product-title {
+        @include text-style($font-size-small, $transparent-color, bold);
+    }
+    
+    .color-btn-icon {
+        @include icon-button-style(20px, $transparent-color);
+    }
+}
